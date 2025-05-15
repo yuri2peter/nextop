@@ -1,0 +1,13 @@
+diff --git a/lib/link-tooltip/index.js b/lib/link-tooltip/index.js
+index 92bb4e1b65c8952cb5fbdfa4992dccc64219221d..98424603ef9df98951a73d701a14073e662b3998 100644
+--- a/lib/link-tooltip/index.js
++++ b/lib/link-tooltip/index.js
+@@ -461,7 +461,7 @@ const PreviewLink = defineComponent({
+       }
+     };
+     return () => {
+-      return /* @__PURE__ */ h("div", { class: "link-preview", onPointerdown: onClickPreview }, /* @__PURE__ */ h(Icon, { class: "link-icon", icon: config.value.linkIcon() }), /* @__PURE__ */ h("a", { href: src.value, target: "_blank", class: "link-display" }, src.value), /* @__PURE__ */ h(
++      return /* @__PURE__ */ h("div", { class: "link-preview" }, /* @__PURE__ */ h(Icon, { class: "link-icon", icon: config.value.linkIcon(), onPointerdown: onClickPreview }), /* @__PURE__ */ h("a", { href: src.value, target: "_blank", class: "link-display" }, src.value), /* @__PURE__ */ h(
+         Icon,
+         {
+           class: "button link-edit-button",
