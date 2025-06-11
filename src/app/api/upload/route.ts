@@ -1,4 +1,4 @@
-import { saveFile } from "@/integrations/fileStorage";
+import { saveFile } from "@/integrations/file-storage";
 import { type NextRequest, NextResponse } from "next/server";
 const MAX_FILE_SIZE = 1024 * 1024 * 32; // 32MB
 

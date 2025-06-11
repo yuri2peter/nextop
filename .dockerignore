@@ -45,3 +45,6 @@ runtime
 .git
 .vscode
 docs
+
+# local files
+local_*

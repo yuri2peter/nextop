@@ -1,6 +1,6 @@
 import * as React from "react";
-import useRootLayout from "./use-root-layout";
 import { useLayoutEffect } from "react";
+import useRootLayout from "./use-root-layout";
 
 const MOBILE_BREAKPOINT = 768;
 

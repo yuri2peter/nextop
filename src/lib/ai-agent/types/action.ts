@@ -1,20 +1,14 @@
 import { z } from "zod";
 
-export const CreateTasksActionSchema = z.object({
-  type: z.literal("create_call_tool_tasks"),
-  task_summary: z
-    .string()
-    .describe(
-      "A brief description of the task, shown to the user to ease waiting anxiety. For example: 'Querying Beijing weather'",
-    ),
-  tasks: z.array(
+export const CallToolsActionSchema = z.object({
+  type: z.literal("call_tools"),
+  actions: z.array(
     z.object({
-      type: z.literal("call_tool"),
       tool_name: z.string().describe("Name of the tool"),
-      tool_instruction: z
+      summary: z
         .string()
         .describe(
-          "A complete and independent instruction for invoking the tool",
+          "A one-sentence summary of the tool invocation action. Do not include specific parameters here; parameters should be provided in the input field.",
         ),
       input: z
         .record(z.any())
@@ -31,11 +25,11 @@ export const OutputActionSchema = z.object({
   output_instruction: z
     .string()
     .describe(
-      "Instructions for how the output node should present the content. Must clearly specify the output language, which should generally match the user's language. The instruction should be concise, as the output node can access all context.",
+      "Instructions for how the output node should present the content. The instruction should be concise, as the output node can access all context. Use an instructive tone, for example: 'Combine the search results and the note content to provide a comprehensive answer.'",
     ),
 });
 export const ActionSchema = z.union([
-  CreateTasksActionSchema,
+  CallToolsActionSchema,
   OutputActionSchema,
 ]);
 
@@ -45,15 +39,4 @@ export const OutputExtraActionSchema = z.object({
     .array(z.string())
     .max(3)
     .describe("Predict possible user inputs (up to 3)"),
-  long_term_memory: z.string().describe("New long-term memory content"),
-  delete_message_reason: z
-    .string()
-    .describe(
-      "Reason for deleting these messages, or for not deleting any, to be shown to the user",
-    ),
-  delete_message_ids: z
-    .array(z.string())
-    .describe(
-      "IDs of messages to be deleted, used to streamline the chat history",
-    ),
 });

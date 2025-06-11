@@ -19,7 +19,7 @@ export const imageSearchTool: Tool<typeof schema> = {
     "Searches for universal images (nature, cities, business, lifestyle...); not suitable for precise searches of individuals, such as a specific person, a particular phone model, or a specific logo.",
   schema,
   execute: async (input) => {
-    const { keywords } = input;
+    const { keywords } = schema.parse(input);
     const results = await imageSearchPexelsApi(keywords);
     return results;
   },
@@ -27,7 +27,7 @@ export const imageSearchTool: Tool<typeof schema> = {
 
 // https://www.pexels.com/api/documentation/?language=javascript
 async function imageSearchPexelsApi(keywords: string) {
-  const client = createClient(env.PEXELS_API_KEY);
+  const client = createClient(env().PEXELS_API_KEY);
   const results = await client.photos.search({
     query: keywords,
     per_page: 16,

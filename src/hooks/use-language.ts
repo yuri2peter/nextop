@@ -1,5 +1,5 @@
 import revalidatePathClient from "@/app/actions";
-import { typedMessages } from "@/integrations/i18n/typedMessages";
+import { typedMessages } from "@/integrations/i18n/typed-messages";
 import Cookies from "js-cookie";
 import { useLocale } from "next-intl";
 import { useCallback } from "react";

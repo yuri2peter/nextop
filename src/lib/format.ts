@@ -35,3 +35,19 @@ export function upperCaseFirst(str: string) {
 export function formatLargeNumber(num: number) {
   return numbro(num).format({ average: true, mantissa: 2, trimMantissa: true });
 }
+
+export function objectToFormData(obj: Record<string, unknown>): FormData {
+  const formData = new FormData();
+  for (const [key, value] of Object.entries(obj)) {
+    if (Array.isArray(value)) {
+      for (let i = 0; i < value.length; i++) {
+        formData.append(`${key}[${i}]`, value[i] as string | Blob);
+      }
+    } else if (typeof value === "object" && value !== null) {
+      formData.append(key, JSON.stringify(value));
+    } else if (value !== undefined && value !== null) {
+      formData.append(key, value as string | Blob);
+    }
+  }
+  return formData;
+}

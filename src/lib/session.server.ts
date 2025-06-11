@@ -8,7 +8,7 @@ import { type SessionPayload, SessionPayloadSchema } from "./session.define";
 
 const COOKIE_NAME = "app_session";
 const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-const secretKey = env.SESSION_SECRET;
+const secretKey = env().SESSION_SECRET;
 const encodedKey = new TextEncoder().encode(secretKey);
 
 async function encrypt(payload: SessionPayload) {

@@ -1,4 +1,4 @@
-import type { SavedFileInfo } from "@/integrations/fileStorage";
+import type { SavedFileInfo } from "@/integrations/file-storage";
 import { saveAs } from "file-saver";
 export type { SavedFileInfo };
 
@@ -11,7 +11,9 @@ export async function uploadFile(file: File) {
   });
   const data = await res.json();
   if (!res.ok) {
-    throw new Error(data.error || "Failed to upload file");
+    throw new Error(
+      (data as { error: string }).error || "Failed to upload file",
+    );
   }
   return data as SavedFileInfo;
 }

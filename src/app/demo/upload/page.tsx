@@ -1,6 +1,6 @@
 import { CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Metadata } from "next";
-import FormUpload from "./FormUpload";
+import FormUpload from "./form-upload";
 
 const title = "Demo - Upload";
 const description = "An example of how to upload files.";

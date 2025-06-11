@@ -35,12 +35,11 @@ export function useProgressBar() {
 }
 
 export function ProgressBar({
-  className = "fixed top-0 h-1 bg-sky-500",
+  className = "fixed top-0 h-1 bg-primary/50 z-1000",
   children,
 }: { className?: string; children: ReactNode }) {
   const progress = useProgress();
   const width = useMotionTemplate`${progress.value}%`;
-
   return (
     <ProgressBarContext.Provider value={progress}>
       <AnimatePresence onExitComplete={progress.reset}>
@@ -84,15 +83,34 @@ export function useProgressNavigate() {
   const router = useRouter();
 
   return useCallback(
-    (href: string) => {
+    (href: string, replace = false) => {
       progress.start();
       startTransition(() => {
-        router.push(href);
+        if (replace) {
+          router.replace(href);
+        } else {
+          router.push(href);
+        }
         progress.done();
       });
     },
     [progress, router],
   );
+}
+
+export function useProgressAction() {
+  const progress = useProgressBar();
+  const callAction = useCallback(
+    async <T,>(action: () => Promise<T>): Promise<T> => {
+      progress.start();
+      const result = await action().finally(() => {
+        progress.done();
+      });
+      return result;
+    },
+    [progress],
+  );
+  return callAction;
 }
 
 function useProgress() {

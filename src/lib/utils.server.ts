@@ -1,3 +1,4 @@
+import { uploadFileByUrl } from "@/app/actions";
 import * as cheerio from "cheerio";
 import { Queue } from "./queue";
 import { fixRelativeLinks } from "./string";
@@ -64,27 +65,52 @@ export function generateSseResponse(
 const DEFAULT_USER_AGENT =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36";
 
+/**
+ * Scrapes HTML content from a given URL or uses provided HTML.
+ *
+ * @param {string} url - The URL to scrape HTML from.
+ * @param {Object} options - Optional parameters for scraping.
+ * @param {string} [options.providedHtml] - HTML content to use instead of fetching from the URL.
+ * @param {string} [options.userAgent=DEFAULT_USER_AGENT] - User-Agent string to use for the request.
+ * @param {boolean} [options.transRelativeLinks=true] - Whether to transform relative links to absolute.
+ * @param {boolean} [options.removeScriptsAndStyles=true] - Whether to remove <script> and <style> tags.
+ * @param {boolean} [options.removeUnusedAttributes=true] - Whether to remove unused attributes from HTML elements.
+ * @param {boolean} [options.saveImagesToLocal=false] - Whether to save images to local storage.
+ *
+ * @returns {Promise<string>} - The scraped HTML content.
+ */
+
 export async function scrapeHtml(
   url: string,
   {
+    providedHtml,
     userAgent = DEFAULT_USER_AGENT,
     transRelativeLinks = true,
     removeScriptsAndStyles = true,
+    removeUnusedAttributes = true,
+    saveImagesToLocal = false,
   }: {
+    providedHtml?: string;
     userAgent?: string;
     transRelativeLinks?: boolean;
     removeScriptsAndStyles?: boolean;
+    removeUnusedAttributes?: boolean;
+    saveImagesToLocal?: boolean;
   } = {},
-) {
+): Promise<string> {
   let html = `<html><head><title>Error</title></head><body><p>${url} is not available.</p></body></html>`;
-  try {
-    const res = await fetch(url, {
-      headers: {
-        "User-Agent": userAgent,
-      },
-    });
-    html = await res.text();
-  } catch (_error) {}
+  if (providedHtml) {
+    html = providedHtml;
+  } else {
+    try {
+      const res = await fetch(url, {
+        headers: {
+          "User-Agent": userAgent,
+        },
+      });
+      html = await res.text();
+    } catch (_error) {}
+  }
   const dom = cheerio.load(html);
   const baseUrl = (() => {
     const baseUrl = dom("base").attr("href");
@@ -94,7 +120,30 @@ export async function scrapeHtml(
     return url;
   })();
   if (removeScriptsAndStyles) {
-    dom("script, style, noscript").remove();
+    dom("script, style, noscript, svg, iframe").remove();
+  }
+  if (removeUnusedAttributes) {
+    dom("*").each((_index, item) => {
+      const attrs = dom(item).attr();
+      if (attrs) {
+        for (const attr of Object.keys(attrs)) {
+          if (
+            ![
+              "id",
+              "src",
+              "href",
+              "title",
+              "alt",
+              "name",
+              "content",
+              "rel",
+            ].includes(attr)
+          ) {
+            dom(item).removeAttr(attr);
+          }
+        }
+      }
+    });
   }
   if (transRelativeLinks) {
     dom("meta, a, link").each((_index, item) => {
@@ -109,6 +158,23 @@ export async function scrapeHtml(
         dom(item).attr("src", fixRelativeLinks(src, baseUrl));
       }
     });
+    if (saveImagesToLocal) {
+      const imgElements = dom("img").toArray();
+      const uploadPromises = imgElements.map(async (item) => {
+        const src = dom(item).attr("src");
+        if (src) {
+          try {
+            const result = await uploadFileByUrl(src);
+            if (result?.url) {
+              dom(item).attr("src", result.url);
+            }
+          } catch (_err) {
+            // console.warn("uploadFileByUrl error for src:", src, _err);
+          }
+        }
+      });
+      await Promise.all(uploadPromises);
+    }
   }
   html = dom.html();
   return html;

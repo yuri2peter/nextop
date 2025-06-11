@@ -14,7 +14,7 @@ export function parseLlmResultWithDivider<T>(
   jsonSchema: z.ZodSchema<T>,
 ) {
   const [text, json] = result.split(DIVIDER);
-  return [text.trim(), jsonSchema.parse(JSON.parse(json))] as const;
+  return [text.trim(), jsonSchema.parse(betterJsonParse(json))] as const;
 }
 
 export function objectAssign<T extends object>(target: T, source: Partial<T>) {
@@ -28,4 +28,15 @@ export function getToolDetails<Schema extends z.ZodSchema>(tool: Tool<Schema>) {
     description: tool.description,
     parameters: zodToJsonSchema(tool.schema),
   };
+}
+
+export function betterJsonParse(jsonStr: string) {
+  const match = jsonStr.match(/\{[\s\S]*\}/);
+  if (!match) throw new Error("No JSON object found in string");
+  return JSON.parse(match[0]);
+}
+
+export function getElementsAfter<T>(arr: T[], element: T) {
+  const index = arr.indexOf(element);
+  return arr.slice(index + 1);
 }

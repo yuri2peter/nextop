@@ -1,4 +1,4 @@
-import EditorCrepe from "@/integrations/markdown/EditorCrepe";
+import EditorCrepe from "@/integrations/markdown/editor-crepe";
 import { example } from "./example";
 
 export default function DemoMarkdownPreview() {

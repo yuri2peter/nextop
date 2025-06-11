@@ -1,8 +1,8 @@
 import * as cheerio from "cheerio";
 import { fixRelativeLinks } from "../string";
 import { scrapeHtml } from "../utils.server";
-import { parseLinks } from "./parseLinks";
-import { parseManifest } from "./parseManifest";
+import { parseLinks } from "./parse-links";
+import { parseManifest } from "./parse-manifest";
 import { getBaseUrl, getManifestUrl } from "./utils";
 
 export default async function parseFavicon(url: string) {
@@ -19,5 +19,13 @@ export default async function parseFavicon(url: string) {
     ...t,
     src: fixRelativeLinks(t.src, baseUrl),
   }));
-  return icons;
+  return icons.length > 0
+    ? icons
+    : [
+        {
+          reference: "default",
+          src: fixRelativeLinks("/favicon.ico", baseUrl),
+          sizes: "unknown",
+        },
+      ];
 }

@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 export function sleep(time: number): Promise<void> {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -52,12 +54,24 @@ export function retry<TArgs extends unknown[], TRes>(
       } catch (error) {
         console.warn("Error occurred, retrying.", error);
         times--;
-        if (retryTimes <= 0) {
-          throw new Error("Task ran out of retries");
+        if (times <= 0) {
+          throw error as Error;
         }
       }
       await sleep(interval);
     }
-    throw new Error("Task ran out of retries");
+    throw new Error("Task ran out of retries"); // should not reach here, but typescript doesn't know that
   };
+}
+
+// Example1: 2025-01-01 09:00 GMT-0730
+// Example2: 2025-01-01 13:45 GMT+0800
+export const TIME_FORMAT = "yyyy-MM-dd HH:mm zzzz";
+
+export function formatTime(date: Date | string = new Date()) {
+  return format(new Date(date), TIME_FORMAT);
+}
+
+export function parseTime(date: string) {
+  return new Date(date);
 }

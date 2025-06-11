@@ -25,7 +25,7 @@ export const webSearchTool: Tool<typeof schema> = {
   schema,
   execute: async (input) => {
     const { query, topic, timeRange } = input;
-    const client = tavily({ apiKey: env.TAVILY_API_KEY });
+    const client = tavily({ apiKey: env().TAVILY_API_KEY });
     const timeRangeMap = {
       all: undefined,
       "one day": "day",
@@ -50,8 +50,8 @@ export const webSearchToolWithSummary: Tool<typeof schema> = {
     "Search the web for information. Get the summary of the search results only.",
   schema,
   execute: async (input) => {
-    const { query, topic, timeRange } = input;
-    const client = tavily({ apiKey: env.TAVILY_API_KEY });
+    const { query, topic, timeRange } = schema.parse(input);
+    const client = tavily({ apiKey: env().TAVILY_API_KEY });
     const timeRangeMap = {
       all: undefined,
       "one day": "day",

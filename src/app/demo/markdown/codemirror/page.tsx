@@ -1,6 +1,6 @@
 "use client";
 
-import EditorCodemirror from "@/integrations/markdown/EditorCodemirror";
+import EditorCodemirror from "@/integrations/markdown/editor-codemirror";
 import { useState } from "react";
 import { example } from "./example";
 

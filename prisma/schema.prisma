@@ -22,3 +22,11 @@ model DemoTodo {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Entry {
+  name      String   @id
+  type      String   @default("")
+  content   String   @default("")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

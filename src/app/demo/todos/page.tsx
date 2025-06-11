@@ -6,9 +6,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import type { Metadata } from "next";
-import FormAddTodo from "./FormAddTodo";
-import TodoList from "./TodoList";
 import { getTodos } from "./actions";
+import FormAddTodo from "./form-add-todo";
+import TodoList from "./todo-list";
 const title = "Demo - Todo List";
 const description =
   "A simple todo list demo built with conform, motion and prisma.";

@@ -1,4 +1,4 @@
-import MarkdownPreview from "@/integrations/markdown/MarkdownPreview";
+import MarkdownPreview from "@/integrations/markdown/markdown-preview";
 import { example } from "./example";
 
 export default function DemoMarkdownPreview() {

@@ -1,6 +1,6 @@
 import { CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Metadata } from "next";
-import Content from "./Content";
+import Content from "./client";
 
 const title = "Demo - Appearance";
 const description =

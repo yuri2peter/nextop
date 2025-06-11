@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import type { Metadata } from "next";
-import TabHeaders from "./TabHeaders";
+import TabHeaders from "./tab-headers";
 
 const title = "Demo - Markdown";
 const description = "A set of markdown demos.";

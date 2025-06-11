@@ -1,8 +1,8 @@
 import { CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
-import Login from "./Login";
-import Logout from "./Logout";
+import Login from "./login";
+import Logout from "./logout";
 const title = "Demo - Auth";
 const description = "An example of how to use auth with cookies.";
 

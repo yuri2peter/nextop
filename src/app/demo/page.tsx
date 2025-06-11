@@ -61,6 +61,14 @@ export default function DemoIndex() {
               label: "Web Parser",
               to: "/demo/web-parser",
             },
+            {
+              label: "Event Calendar",
+              to: "/demo/event-calendar",
+            },
+            {
+              label: "Skin",
+              to: "/demo/skin",
+            },
           ]
             .sort((a, b) => a.label.localeCompare(b.label))
             .map(({ label, to }) => (

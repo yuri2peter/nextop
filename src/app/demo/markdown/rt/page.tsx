@@ -1,6 +1,6 @@
 "use client";
 
-import EditorRt from "@/integrations/markdown/EditorRt";
+import EditorRt from "@/integrations/markdown/editor-rt";
 import { useState } from "react";
 import { example } from "./example";
 

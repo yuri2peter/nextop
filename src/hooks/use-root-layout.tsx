@@ -1,4 +1,4 @@
-import { RootLayoutContext } from "@/components/app/rootLayout/rootLayout";
+import { RootLayoutContext } from "@/components/app/root-layout";
 import { useContext } from "react";
 
 export default function useRootLayout() {

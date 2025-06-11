@@ -16,7 +16,7 @@ export const randomNumbersTool: Tool<typeof schema> = {
   description: "Generate random numbers.",
   schema,
   execute: async (input) => {
-    const { min, max, count } = input;
+    const { min, max, count } = schema.parse(input);
     const numbers = Array.from({ length: count }, () => random(min, max));
     return numbers;
   },

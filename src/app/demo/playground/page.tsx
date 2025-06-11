@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/card";
 import type { Metadata } from "next";
 import Link from "next/link";
-import Playground from "./Playground";
+import Playground from "./client";
 
 const title = "Demo - Playground";
 const description = "It's a playground for testing.";

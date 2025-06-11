@@ -1,3 +1,20 @@
+diff --git a/node_modules/@milkdown/crepe/.bun-tag-7812a9b8eefe67f2 b/.bun-tag-7812a9b8eefe67f2
+new file mode 100644
+index 0000000000000000000000000000000000000000..e69de29bb2d1d6434b8b29ae775ad8c2e48c5391
+diff --git a/lib/esm/index-BDZ_pnSv.js b/lib/esm/index-BDZ_pnSv.js
+index ab4f41d8d349702dda6bf936b09d5f8fc816ec98..ffbbf00dc838d77cb897fcd9c7adcbf31916a83b 100644
+--- a/lib/esm/index-BDZ_pnSv.js
++++ b/lib/esm/index-BDZ_pnSv.js
+@@ -263,7 +263,8 @@ const defineFeature = (editor, config) => {
+     ctx.update(codeBlockConfig.key, (prev) => ({
+       ...prev,
+       renderPreview: (language, content) => {
+-        if (language.toLowerCase() === "latex" && content.length > 0) {
++        // fix: language could be null
++        if (language?.toLowerCase() === "latex" && content.length > 0) {
+           return renderLatex(content, config == null ? void 0 : config.katexOptions);
+         }
+         const renderPreview = prev.renderPreview;
 diff --git a/lib/esm/index-CM4urRY9.js b/lib/esm/index-CM4urRY9.js
 index bcb4542e7b95bd2b72458f8bfaaf8b2aba07badf..093b99bbba8146280f89384e57e7d7d5c96b58dc 100644
 --- a/lib/esm/index-CM4urRY9.js

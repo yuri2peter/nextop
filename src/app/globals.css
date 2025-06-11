@@ -145,3 +145,31 @@
 .dark .prose {
   @apply prose-invert max-w-none;
 }
+
+.hover-show-scroller {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+
+  &:hover,
+  &:focus-within {
+    scrollbar-color: var(--color-sidebar-ring) var(--color-sidebar);
+  }
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    background: transparent;
+  }
+  &:hover::-webkit-scrollbar,
+  &:focus-within::-webkit-scrollbar {
+    background: var(--color-sidebar);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 4px;
+    transition: background 0.3s;
+  }
+  &:hover::-webkit-scrollbar-thumb,
+  &:focus-within::-webkit-scrollbar-thumb {
+    background: var(--color-sidebar-ring);
+  }
+}

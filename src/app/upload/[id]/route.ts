@@ -1,5 +1,5 @@
 // A route to serve the uploaded file
-import { fileStorage } from "@/integrations/fileStorage";
+import { fileStorage } from "@/integrations/file-storage";
 import { notFound } from "next/navigation";
 import { type NextRequest, NextResponse } from "next/server";
 

@@ -4,10 +4,13 @@ import { NextIntlClientProvider } from "next-intl";
 import { Geist, Geist_Mono } from "next/font/google";
 import { NuqsAdapter } from "nuqs/adapters/next";
 import "./globals.css";
-import type { RootLayoutContextValue } from "@/components/app/rootLayout/defines";
-import { RootLayoutContextProvider } from "@/components/app/rootLayout/rootLayout";
+import { AlertDialogProvider } from "@/components/advance/alert-provider";
+import { SkinStyle } from "@/components/advance/skin/style";
+import { RootLayoutContextProvider } from "@/components/app/root-layout";
+import type { RootLayoutContextValue } from "@/components/app/root-layout/defines";
 import { Toaster } from "@/components/ui/sonner";
 import { getAppLocale } from "@/integrations/i18n/request";
+import { env } from "@/lib/env.server";
 import { getSession } from "@/lib/session.server";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "next-themes";
@@ -41,10 +44,11 @@ export default async function RootLayout({
           name="format-detection"
           content="telephone=no, date=no, email=no, address=no"
         />
+        <SkinStyle defaultSkin={contextValue.defaultSkin} />
       </head>
       <body
         className={cn(
-          `${geistSans.variable} ${geistMono.variable} antialiased`,
+          `${geistSans.variable} ${geistMono.variable} antialiased hover-show-scroller`,
           {
             "is-mobile": contextValue.defaultIsMobile,
           },
@@ -59,7 +63,9 @@ export default async function RootLayout({
           <NextIntlClientProvider>
             <NuqsAdapter>
               <RootLayoutContextProvider value={contextValue}>
-                <ProgressBar>{children}</ProgressBar>
+                <ProgressBar>
+                  <AlertDialogProvider>{children}</AlertDialogProvider>
+                </ProgressBar>
               </RootLayoutContextProvider>
             </NuqsAdapter>
           </NextIntlClientProvider>
@@ -74,6 +80,7 @@ async function preprocess() {
   const session = await getSession();
   const cookieStore = await cookies();
   const headersList = await headers();
+  const defaultSkin = cookieStore.get("app_skin")?.value || "default";
   const defaultTheme = cookieStore.get("app_theme")?.value || "system";
   const defaultThemeResolved =
     cookieStore.get("app_theme_resolved")?.value || "light";
@@ -84,9 +91,12 @@ async function preprocess() {
   const contextValue: RootLayoutContextValue = {
     defaultIsMobile,
     defaultLanguage,
+    defaultSkin,
     defaultTheme,
     defaultThemeResolved,
     session: pick(session, ["userRole", "username"]),
+    llmInputTokenLimit: env().LLM_INPUT_TOKEN_LIMIT,
+    isDev: env().NODE_ENV === "development",
   };
   const appLocale = await getAppLocale();
   return { contextValue, defaultTheme, appLocale };

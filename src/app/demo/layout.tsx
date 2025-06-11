@@ -16,7 +16,7 @@ export default function DemoLayout({
 }: {
   children: React.ReactNode;
 }) {
-  if (!env.ENABLE_DEMO) {
+  if (!env().ENABLE_DEMO) {
     notFound();
   }
   return (

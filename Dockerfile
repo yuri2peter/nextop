@@ -10,7 +10,7 @@ RUN bun ci
 FROM installer AS builder
 WORKDIR /app
 COPY . .
-RUN bun prisma:generate && bun build:app
+RUN bun prisma:generate && bun run build
 
 FROM builder AS runner
 WORKDIR /app

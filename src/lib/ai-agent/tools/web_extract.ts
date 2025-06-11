@@ -1,25 +1,24 @@
-import { parseMarkdown } from "@/app/demo/web-parser/parsers/parseMarkdown";
-import { env } from "@/lib/env.server";
+import { parseMarkdown } from "@/lib/parse-html";
 import { scrapeHtml } from "@/lib/utils.server";
-import { tavily } from "@tavily/core";
 import { z } from "zod";
 import type { Tool } from "../types/tool";
 
 const schema = z.object({
   urls: z
-    .array(z.string())
+    .array(z.string().url())
     .min(1)
-    .max(3)
-    .describe("Urls to extract information from."),
+    .describe(
+      "Urls to extract information from. url must start with http or https",
+    ),
 });
 
 export const webExtractTool: Tool<typeof schema> = {
   name: "web_extract",
   description:
-    "Extract information from specific URLs and return the detailed content of each page as a list of objects.",
+    "Extract information from specific URLs and return the detailed content of each page as a list of objects. The number of URLs is limited to 8.",
   schema,
   execute: async (input) => {
-    const { urls } = input;
+    const { urls } = schema.parse(input);
     const results = await extractWithNativeParser(urls);
     return results;
   },
@@ -36,15 +35,5 @@ async function extractWithNativeParser(urls: string[]) {
       };
     }),
   );
-  return results;
-}
-
-// biome-ignore lint/correctness/noUnusedVariables: <explanation>
-async function extractWithTavily(urls: string[]) {
-  const client = tavily({ apiKey: env.TAVILY_API_KEY });
-  const results = await client.extract(urls, {
-    extractDepth: "basic",
-    includeImages: true,
-  });
   return results;
 }

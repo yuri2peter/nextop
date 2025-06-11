@@ -9,8 +9,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import type { Metadata } from "next";
 import { RedirectType, redirect } from "next/navigation";
 import { Suspense } from "react";
-import FormSub from "./FormSub";
-import ParsedResult from "./ParsedResult";
+import FormSub from "./form-sub";
+import ParsedResult from "./parsed-result";
 
 const title = "Demo - Web Parser";
 const description = "A demo for web parser.";
