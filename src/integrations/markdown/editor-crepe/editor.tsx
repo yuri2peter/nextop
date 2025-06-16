@@ -4,7 +4,7 @@ import "@milkdown/crepe/theme/nord.css";
 import "./styles.css";
 import { useRefValue } from "@/hooks/use-ref-value";
 import useTheme from "@/hooks/use-theme";
-import { uploadFile } from "@/lib/file.client";
+// import { uploadFile } from "@/lib/file.client";
 import { cn } from "@/lib/utils";
 import { Crepe } from "@milkdown/crepe";
 import { editorViewCtx, parserCtx } from "@milkdown/kit/core";
@@ -77,7 +77,9 @@ const EditorCrepe: FC<MilkdownProps> = ({
       const { from } = selection;
       let tr = state.tr;
       tr = tr.replace(0, state.doc.content.size, new Slice(doc.content, 0, 0));
-      tr = tr.setSelection(Selection.near(tr.doc.resolve(from)));
+      const newDocSize = tr.doc.content.size;
+      const safeFrom = Math.min(from, newDocSize);
+      tr = tr.setSelection(Selection.near(tr.doc.resolve(safeFrom)));
       view.dispatch(tr);
     });
   }, []);
@@ -101,6 +103,9 @@ const EditorCrepe: FC<MilkdownProps> = ({
     const crepe = new Crepe({
       root: divRef.current,
       defaultValue: refDefaultContent.current,
+      features: {
+        [Crepe.Feature.ImageBlock]: false,
+      },
       featureConfigs: {
         [Crepe.Feature.CodeMirror]: {
           theme: darkMode ? vscodeLight : vscodeDark,
@@ -110,12 +115,12 @@ const EditorCrepe: FC<MilkdownProps> = ({
             toast.success("Link copied");
           },
         },
-        [Crepe.Feature.ImageBlock]: {
-          async onUpload(file) {
-            const res = await uploadFile(file);
-            return res.url;
-          },
-        },
+        // [Crepe.Feature.ImageBlock]: {
+        //   async onUpload(file) {
+        //     const res = await uploadFile(file);
+        //     return res.url;
+        //   },
+        // },
         [Crepe.Feature.BlockEdit]: {
           callUploadFiles,
           slashMenuUploadFilesIcon: iconUpload,

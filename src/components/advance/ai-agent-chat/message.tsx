@@ -35,7 +35,7 @@ export default function ChatMessage({ message }: { message: Message }) {
       <ChatBubbleMessage variant={isUser ? "sent" : "received"}>
         <MarkdownPreview
           text={[message.content].filter((t) => t.trim()).join("\n\n") || "..."}
-          className={cn("min-w-20", isUser && "invert")}
+          className={cn("min-w-20")}
         />
       </ChatBubbleMessage>
       {message.role === "user" && (

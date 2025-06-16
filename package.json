@@ -68,6 +68,7 @@
     "@vavt/markdown-theme": "^4.4.0",
     "@vavt/rt-extension": "^3.0.0",
     "@yuri2/codemirror-ai-enhancer": "^1.0.0",
+    "ahooks": "^3.8.5",
     "atomico": "^1.79.2",
     "cheerio": "^1.0.0",
     "class-variance-authority": "^0.7.1",
@@ -158,6 +159,7 @@
   },
   "patchedDependencies": {
     "@milkdown/components@7.10.2": "patches/@milkdown%2Fcomponents@7.10.2.patch",
-    "@milkdown/crepe@7.10.2": "patches/@milkdown%2Fcrepe@7.10.2.patch"
+    "@milkdown/crepe@7.10.2": "patches/@milkdown%2Fcrepe@7.10.2.patch",
+    "@milkdown/plugin-clipboard@7.10.2": "patches/@milkdown%2Fplugin-clipboard@7.10.2.patch"
   }
 }

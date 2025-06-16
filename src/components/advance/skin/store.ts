@@ -1,6 +1,6 @@
 import { createZustandStore } from "@/lib/create-store";
 
-const useSkinStore = createZustandStore({ skin: "default" }, (set) => ({
+const useSkinStore = createZustandStore({ skin: "" }, (set) => ({
   actions: {
     setSkin: (skin: string) => {
       set({ skin });

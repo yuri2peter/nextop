@@ -38,19 +38,12 @@ interface ChatBubbleMessageProps {
 }
 
 export function ChatBubbleMessage({
-  variant = "received",
   isLoading,
   className,
   children,
 }: ChatBubbleMessageProps) {
   return (
-    <div
-      className={cn(
-        "rounded-lg p-3 overflow-auto",
-        variant === "sent" ? "bg-primary text-primary-foreground" : "bg-muted",
-        className,
-      )}
-    >
+    <div className={cn("rounded-lg p-3 overflow-auto bg-muted", className)}>
       {isLoading ? (
         <div className="flex items-center space-x-2">
           <MessageLoading />

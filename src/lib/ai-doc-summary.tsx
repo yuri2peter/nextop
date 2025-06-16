@@ -18,7 +18,7 @@ First, determine the type of the document:
 - If it is a story, fable, essay, or poem, keep the natural narrative style and do not force headings or lists.
 
 Main Purpose:
-- The output MUST be a markdown string. Output the Markdown text directly without wrapping it in code blocks (e.g., \`\`\`markdown or \`\`\`).
+- The output MUST be a markdown string. Output the Markdown text directly. DO NOT wrap it in markdown code blocks.
 - If the USERDOCUMENT is blank, generate a template suitable for the detected type.
 - If the USERDOCUMENT is a word or title, expand it into a full article or story as appropriate.
 - If the USERDOCUMENT is an instruction, generate a complete article or story based on that instruction.
