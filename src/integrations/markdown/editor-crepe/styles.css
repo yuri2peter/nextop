@@ -71,7 +71,7 @@
     }
   }
   .upload-widget {
-    @apply rounded-md border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden;
+    @apply rounded-md border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden absolute z-10;
     @apply border-transparent bg-primary text-primary-foreground [a&]:hover:bg-primary/90;
   }
 
@@ -118,10 +118,10 @@
     --crepe-color-hover: #eceef4;
     --crepe-color-selected: #e1e2e8;
     --crepe-color-inline-area: #d8dae000;
-    --crepe-shadow-1: 0px 1px 3px 1px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px
-      rgba(0, 0, 0, 0.3);
-    --crepe-shadow-2: 0px 2px 6px 2px rgba(0, 0, 0, 0.15), 0px 1px 2px 0px
-      rgba(0, 0, 0, 0.3);
+    --crepe-shadow-1: 0px 1px 3px 1px rgba(0, 0, 0, 0.15),
+      0px 1px 2px 0px rgba(0, 0, 0, 0.3);
+    --crepe-shadow-2: 0px 2px 6px 2px rgba(0, 0, 0, 0.15),
+      0px 1px 2px 0px rgba(0, 0, 0, 0.3);
   }
 }
 

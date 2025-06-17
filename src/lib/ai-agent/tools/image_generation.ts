@@ -31,7 +31,8 @@ const schema = z.object({
         .max(10000)
         .describe("The height of the image."),
     })
-    .nullable(),
+    .nullable()
+    .default(null),
 });
 
 export const imageGenerationTool: Tool<typeof schema> = {
