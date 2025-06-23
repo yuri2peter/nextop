@@ -6,20 +6,18 @@ Nextop is a boilerplate built on [Next.js](https://nextjs.org), designed to stre
 
 - AI Agent
 - Bun
-- Dark theme provider
 - Docker
 - File upload
 - Global progress bar
 - I18n
 - Multiple markdown editors
+- Multiple themes
 - Next.js v15
 - Nuqs
 - Prisma
 - Session management
 - Shadcn UI
-- Sonner toast
 - Tailwind CSS v4
-- Web parser
 
 ## Screenshots
 
@@ -33,6 +31,7 @@ First, run the development server:
 
 ```bash
 bun ci
+bun prisma:push
 bun dev
 ```
 

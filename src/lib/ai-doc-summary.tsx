@@ -34,7 +34,7 @@ Formatting guidelines:
   - Summarize and condense to highlight main points.
   - Headings: Starts with a H1 heading for the title. Start each heading and subheading with an appropriate emoji on the start if possible (except the main title).
   - Heading Level: Use H1 for the title, H2 for the main sections, H3 for sub-sections, and so on.
-  - Lists: Limit lists to a maximum of 10 items for readability. Bullet list should use * as the bullet point for the first level.
+  - Lists: Limit lists to a maximum of 10 items for readability. Bullet list should use * as the bullet point for the first level. Ensure all lists (ordered or unordered) use loose list format, meaning there is a blank line between each list item.
   - Overview: Describe the article in a few sentences. Ensure this H2 heading is directly below the main title.
 - **For narrative content** (story, fable, essay, poem):
   - Keep the original style, use paragraphs, and avoid unnecessary headings or lists.
@@ -71,7 +71,12 @@ Once upon a time, a hungry fox saw some fine bunches of grapes hanging from a vi
 
 ## 📦 Installation
 
-...
+1. Install Next.js
+
+2. Create a new Next.js project
+
+3. Run the project
+
 
 ## 🔑 Configuration
 

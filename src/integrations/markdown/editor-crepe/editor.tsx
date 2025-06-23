@@ -12,6 +12,7 @@ import { listener, listenerCtx } from "@milkdown/kit/plugin/listener";
 import { upload, uploadConfig } from "@milkdown/kit/plugin/upload";
 import { type Node as ProseNode, Slice } from "@milkdown/kit/prose/model";
 import { Selection } from "@milkdown/kit/prose/state";
+import { remarkPreserveEmptyLinePlugin } from "@milkdown/preset-commonmark";
 import { vscodeDark, vscodeLight } from "@uiw/codemirror-theme-vscode";
 import { debounce, throttle } from "radashi";
 import {
@@ -145,6 +146,7 @@ const EditorCrepe: FC<MilkdownProps> = ({
         refOnTocChange.current(toc);
       },
     );
+    crepe.editor.remove(remarkPreserveEmptyLinePlugin);
     crepe.editor
       .config((ctx) => {
         ctx.get(listenerCtx).markdownUpdated(

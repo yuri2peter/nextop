@@ -4,7 +4,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { cn } from "@/lib/utils";
 import { useTheme } from "next-themes";
 import type { ComponentProps } from "react";
-import ReactDiffViewer from "react-diff-viewer";
+import ReactDiffViewer, { DiffMethod } from "react-diff-viewer";
 import styles from "./styles.module.css";
 
 export default function DiffViewer({
@@ -18,6 +18,7 @@ export default function DiffViewer({
       <ReactDiffViewer
         useDarkTheme={resolvedTheme === "dark"}
         splitView={!isMobile}
+        compareMethod={DiffMethod.CHARS}
         {...props}
       />
     </div>
