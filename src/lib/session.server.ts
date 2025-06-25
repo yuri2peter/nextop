@@ -8,20 +8,24 @@ import { type SessionPayload, SessionPayloadSchema } from "./session.define";
 
 const COOKIE_NAME = "app_session";
 const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-const secretKey = env().SESSION_SECRET;
-const encodedKey = new TextEncoder().encode(secretKey);
+
+function getEncodedKey() {
+  const secretKey = env().SESSION_SECRET;
+  const encodedKey = new TextEncoder().encode(secretKey);
+  return encodedKey;
+}
 
 async function encrypt(payload: SessionPayload) {
   return new SignJWT(SessionPayloadSchema.parse(payload))
     .setProtectedHeader({ alg: "HS256" })
     .setIssuedAt()
     .setExpirationTime(expiresAt)
-    .sign(encodedKey);
+    .sign(getEncodedKey());
 }
 
 async function decrypt(session = "") {
   try {
-    const { payload } = await jwtVerify(session, encodedKey, {
+    const { payload } = await jwtVerify(session, getEncodedKey(), {
       algorithms: ["HS256"],
     });
     return SessionPayloadSchema.parse(payload);
