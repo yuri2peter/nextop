@@ -28,6 +28,7 @@ import { uploadWidgetFactory } from "./upload-widget-factory";
 import { callUploadFiles } from "./upload/call-upload-files";
 import { filesUploader } from "./upload/files-uploader";
 import { iconUpload } from "./upload/icon";
+import { convertToCompactList } from "./utils";
 
 interface MilkdownProps {
   defaultValue?: string;
@@ -151,7 +152,7 @@ const EditorCrepe: FC<MilkdownProps> = ({
       .config((ctx) => {
         ctx.get(listenerCtx).markdownUpdated(
           debounce({ delay: onChangeDebounceDelay }, (_, markdown) => {
-            refOnChange.current(markdown);
+            refOnChange.current(convertToCompactList(markdown));
           }),
         );
         ctx.get(listenerCtx).mounted((ctx) => {
