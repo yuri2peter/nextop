@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "bun --bun next build --turbo",
+    "bootstrap": "bun ./scripts/bootstrap.ts",
+    "build:default": "bun --bun next build --turbo",
+    "build:standalone": "cross-env OUTPUT_MODE=standalone bun --bun next build --turbo",
     "ci": "bun install --frozen-lockfile",
-    "dev": "bun init-secret-key && env-cmd -f ./runtime/secret.env -- bun --bun next dev --turbo --hostname 127.0.0.1",
-    "init-secret-key": "bun init-secret-key.ts",
+    "dev": "bun prisma:push && bun bootstrap && env-cmd -f ./runtime/secret.env -- bun --bun next dev --turbo --hostname 127.0.0.1",
     "lint": "biome check --write .",
     "lint:fix": "biome check --write --unsafe .",
     "prisma:deploy": "prisma migrate deploy",
@@ -17,7 +18,7 @@
     "prisma:reset": "prisma migrate reset",
     "prisma:studio": "prisma studio",
     "sort": "sort-package-json",
-    "start": "bun init-secret-key && env-cmd -f ./runtime/secret.env -- bun --bun next start",
+    "start": "bun prisma:push && bun bootstrap && env-cmd -f ./runtime/secret.env -- bun --bun next start",
     "tsc": "tsc"
   },
   "dependencies": {

@@ -39,5 +39,9 @@ yarn-error.log*
 *.tsbuildinfo
 runtime
 
-# local files
-local_*
+# docs
+docs/.vitepress/dist
+docs/.vitepress/cache
+
+# local scripts
+scripts/local_*

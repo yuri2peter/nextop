@@ -25,17 +25,11 @@ Nextop is a boilerplate built on [Next.js](https://nextjs.org), designed to stre
 ![Markdown Editor](./docs/images/markdown-editor.png)
 ![Appearance](./docs/images/appearance.png)
 
-## Getting Started
-
-First, run the development server:
+## Development
 
 ```bash
-bun ci
-bun prisma:push
-bun dev
+bun ci && bun dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Environment Variables
 
@@ -47,13 +41,14 @@ See more in [Next.js Environment Variables](https://nextjs.org/docs/pages/guides
 
 ## Before Publishing
 
-1. Change the `SESSION_SECRET` in the Environment Variables to a random string(`openssl rand -base64 32`).
-2. No unauthenticated uploading (`/api/upload`).
-3. No unauthenticated API calls.
-4. Do not commit any secrets in the source code.
-5. Do not expose any sensitive information in the client-side code.
+- No unauthenticated uploading (`/api/upload`).
+- No unauthenticated API calls.
+- Do not commit any secrets in the source code.
+- Do not expose any sensitive information in the client-side code.
 
-## Deploy
+## Deployment
+
+### Docker Compose (Recommended)
 
 ```yaml
 services:
@@ -66,7 +61,12 @@ services:
     environment:
       - PORT=3000
       - ENABLE_DEMO=false
-      - SESSION_SECRET=
+```
+
+### Local
+
+```bash
+bun ci && bun run build:default && bun start
 ```
 
 Learn more env config in [.env.example](.env.example).

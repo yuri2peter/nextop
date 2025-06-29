@@ -46,5 +46,8 @@ runtime
 .vscode
 docs
 
-# local files
-local_*
+# docs
+docs
+
+# local scripts
+scripts/local_*

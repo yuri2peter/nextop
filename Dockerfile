@@ -1,19 +1,21 @@
-FROM oven/bun AS base
+FROM oven/bun AS oven
 
-FROM base AS installer
+
+FROM oven AS base
 WORKDIR /app
 RUN apt-get update -y && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*
+
+FROM base AS builder
+WORKDIR /app
 COPY ./package.json ./bun.lock ./
 COPY ./patches ./patches
 RUN bun ci
-
-FROM installer AS builder
-WORKDIR /app
 COPY . .
-RUN bun prisma:generate && bun run build
+RUN sh scripts/standalone-build.sh
 
-FROM builder AS runner
+FROM base AS runner
 WORKDIR /app
 ENV NODE_ENV=production
-CMD bun prisma:push && bun start
+COPY --from=builder /app/.next/standalone .
+CMD bun start
 
