@@ -1,4 +1,4 @@
-FROM oven/bun AS oven
+FROM imbios/bun-node:23-slim AS oven
 
 
 FROM oven AS base

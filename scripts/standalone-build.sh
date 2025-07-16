@@ -12,4 +12,4 @@ cp -r scripts .next/standalone/
 cp -r scripts/standalone-package.json .next/standalone/package.json
 
 cd .next/standalone
-bun i
+bun install

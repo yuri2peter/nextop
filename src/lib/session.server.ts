@@ -46,7 +46,7 @@ export async function updateSession(payload: Partial<SessionPayload> = {}) {
   const cookieStore = await cookies();
   cookieStore.set(COOKIE_NAME, session, {
     httpOnly: true,
-    secure: true,
+    // secure: true,
     expires: expiresAt,
     sameSite: "lax",
     path: "/",
